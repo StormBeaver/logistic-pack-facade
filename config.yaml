@@ -1,0 +1,16 @@
+project:
+  name: Logistic Pack Facade
+  debug: true
+  environment: development
+
+kafka:
+  tick: 4s
+  topics: 
+    -"create"
+    -"delete"
+    -"update"
+  groupId: "logistic-pack"
+  brokers:
+    - "localhost:9094"
+    - "localhost:9095"
+    - "localhost:9096"
