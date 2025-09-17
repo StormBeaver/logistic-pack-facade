@@ -63,6 +63,7 @@ func (consumer *Consumer) ConsumeClaim(session sarama.ConsumerGroupSession, clai
 	return nil
 }
 
+// func for parsing PackEvent into ParsedPackEvent type
 func parsePackEvent(packEvent *PackEvent) (*ParsedPackEvent, error) {
 	var parsedEvent ParsedPackEvent
 	var pack Pack
