@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"os"
 	"os/signal"
 	"sync"
 	"syscall"
@@ -15,7 +14,6 @@ import (
 
 func main() {
 
-	sigs := make(chan os.Signal, 1)
 	wg := &sync.WaitGroup{}
 
 	if err := config.ReadConfigYML("config.yml"); err != nil {
@@ -31,13 +29,14 @@ func main() {
 		Str("environment", cfg.Project.Environment).
 		Msgf("Starting service: %s", cfg.Project.Name)
 
+		// TODO: add different log level msgs into project lol
 	if cfg.Project.Debug {
 		log.Level(zerolog.DebugLevel)
 	} else {
 		log.Level(zerolog.InfoLevel)
 	}
 
-	ctx, cancel := context.WithCancel(context.Background())
+	ctx, _ := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
 
 	err := consumer.StartConsuming(ctx, &cfg.Kafka, wg)
 
@@ -45,8 +44,6 @@ func main() {
 		log.Fatal().Msg(err.Error())
 	}
 
-	signal.Notify(sigs, syscall.SIGINT, syscall.SIGTERM)
-	<-sigs
-	cancel()
+	<-ctx.Done()
 	wg.Wait()
 }
