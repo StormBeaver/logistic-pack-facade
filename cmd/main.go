@@ -31,7 +31,6 @@ func main() {
 		Strs("topics", cfg.Kafka.Topics).
 		Msgf("Starting service: %s", cfg.Project.Name)
 
-		// TODO: add different log level msgs into project lol
 	if cfg.Project.Debug {
 		log.Level(zerolog.DebugLevel)
 	} else {
