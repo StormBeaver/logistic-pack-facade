@@ -3,7 +3,6 @@ package model
 import (
 	"encoding/json"
 	"fmt"
-	"log"
 	"time"
 
 	"github.com/IBM/sarama"
@@ -48,7 +47,7 @@ func (consumer *Consumer) ConsumeClaim(session sarama.ConsumerGroupSession, clai
 		var msg PackEvent
 		err := json.Unmarshal(message.Value, &msg)
 		if err != nil {
-			log.Fatal(err)
+			return fmt.Errorf("parse PackEvent: %w", err)
 		}
 		result, err := parsePackEvent(&msg)
 		if err != nil {
@@ -69,7 +68,7 @@ func parsePackEvent(packEvent *PackEvent) (*ParsedPackEvent, error) {
 	var pack Pack
 	err := json.Unmarshal(packEvent.Entity, &pack)
 	if err != nil {
-		return nil, fmt.Errorf("pack parse error: %w", err)
+		return nil, fmt.Errorf("pack parse: %w", err)
 	}
 	parsedEvent.ID = packEvent.ID
 	parsedEvent.Type = packEvent.Type

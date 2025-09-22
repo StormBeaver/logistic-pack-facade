@@ -27,6 +27,8 @@ func main() {
 		Str("commitHash", cfg.Project.CommitHash).
 		Bool("debug", cfg.Project.Debug).
 		Str("environment", cfg.Project.Environment).
+		Strs("brokers", cfg.Kafka.Brokers).
+		Strs("topics", cfg.Kafka.Topics).
 		Msgf("Starting service: %s", cfg.Project.Name)
 
 		// TODO: add different log level msgs into project lol
@@ -43,6 +45,7 @@ func main() {
 	if err != nil {
 		log.Fatal().Msg(err.Error())
 	}
+	log.Info().Msg("start consuming")
 
 	<-ctx.Done()
 	wg.Wait()
