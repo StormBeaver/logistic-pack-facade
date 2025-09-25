@@ -11,7 +11,6 @@ import (
 type PackEvent struct {
 	ID     uint64  `db:"id"`
 	Type   string  `db:"type"`
-	Status bool    `db:"lock"`
 	Entity []uint8 `db:"payload"`
 }
 
@@ -25,7 +24,6 @@ type Pack struct {
 type ParsedPackEvent struct {
 	ID     uint64 `db:"id"`
 	Type   string `db:"type"`
-	Status bool   `db:"lock"`
 	Entity *Pack  `db:"payload"`
 }
 
