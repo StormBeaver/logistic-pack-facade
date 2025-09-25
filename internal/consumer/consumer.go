@@ -24,7 +24,7 @@ func StartConsuming(ctx context.Context, cfg *config.Kafka, wg *sync.WaitGroup) 
 
 	for _, topic := range cfg.Topics {
 		subscribe(ctx, topic, consumerGroup, cfg.Tick, wg)
-		log.Debug().Str("topic:", topic).Msg("subscribe to topic")
+		log.Debug().Str("subscribe to :", topic)
 	}
 	return nil
 }
@@ -44,7 +44,7 @@ func subscribe(
 			select {
 			case <-ticker.C:
 				if err := group.Consume(ctx, []string{topic}, &consumer); err != nil {
-					log.Error().Err(err).Msg("failed to consume")
+					log.Error().Err(err).Msg("consume fail")
 				}
 			case <-ctx.Done():
 				wg.Done()
