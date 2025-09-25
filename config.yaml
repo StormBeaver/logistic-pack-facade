@@ -6,11 +6,11 @@ project:
 kafka:
   tick: 4s
   topics: 
-    -"create"
-    -"delete"
-    -"update"
+    - "created"
+    - "removed"
+    - "updated"
   groupId: "logistic-pack"
   brokers:
     - "localhost:9094"
-    - "localhost:9095"
-    - "localhost:9096"
+    # - "localhost:9095"
+    # - "localhost:9096"
