@@ -2,6 +2,8 @@ package main
 
 import (
 	"context"
+	"net/http"
+	_ "net/http/pprof"
 	"os/signal"
 	"sync"
 	"syscall"
@@ -13,10 +15,10 @@ import (
 )
 
 func main() {
-
+	go http.ListenAndServe("localhost:10000", nil)
 	wg := &sync.WaitGroup{}
 
-	if err := config.ReadConfigYML("config.yml"); err != nil {
+	if err := config.ReadConfigYML("config.yaml"); err != nil {
 		log.Fatal().Err(err).Msg("Failed init configuration")
 	}
 
