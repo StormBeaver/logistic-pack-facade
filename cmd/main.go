@@ -34,9 +34,9 @@ func main() {
 		Msgf("Starting service: %s", cfg.Project.Name)
 
 	if cfg.Project.Debug {
-		log.Level(zerolog.DebugLevel)
+		zerolog.SetGlobalLevel(zerolog.DebugLevel)
 	} else {
-		log.Level(zerolog.InfoLevel)
+		zerolog.SetGlobalLevel(zerolog.InfoLevel)
 	}
 
 	ctx, _ := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
