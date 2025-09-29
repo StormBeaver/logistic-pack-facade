@@ -22,35 +22,31 @@ func StartConsuming(ctx context.Context, cfg *config.Kafka, wg *sync.WaitGroup) 
 		return err
 	}
 
-	for _, topic := range cfg.Topics {
-		subscribe(ctx, topic, consumerGroup, cfg.Tick, wg)
-		log.Debug().Str("subscribe to :", topic)
-	}
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		log.Info().Strs("topic", cfg.Topics).Msg("subscribe")
+		subscribe(ctx, cfg.Topics, consumerGroup, cfg.Tick)
+	}()
 	return nil
 }
 
 func subscribe(
 	ctx context.Context,
-	topic string,
+	topic []string,
 	group sarama.ConsumerGroup,
 	consumeRate time.Duration,
-	wg *sync.WaitGroup,
-) error {
+) {
 	ticker := time.NewTicker(consumeRate)
 	consumer := model.Consumer{}
-	wg.Add(1)
-	go func() {
-		for {
-			select {
-			case <-ticker.C:
-				if err := group.Consume(ctx, []string{topic}, &consumer); err != nil {
-					log.Error().Err(err).Msg("consume fail")
-				}
-			case <-ctx.Done():
-				wg.Done()
-				return
+	for {
+		select {
+		case <-ticker.C:
+			if err := group.Consume(ctx, topic, &consumer); err != nil {
+				log.Error().Err(err).Msg("consume fail")
 			}
+		case <-ctx.Done():
+			return
 		}
-	}()
-	return nil
+	}
 }
