@@ -24,7 +24,7 @@ type Pack struct {
 type ParsedPackEvent struct {
 	ID     uint64 `db:"id"`
 	Type   string `db:"type"`
-	Entity *Pack  `db:"payload"`
+	Entity Pack   `db:"payload"`
 }
 
 type Consumer struct{}
@@ -70,6 +70,6 @@ func parsePackEvent(packEvent *PackEvent) (*ParsedPackEvent, error) {
 	}
 	parsedEvent.ID = packEvent.ID
 	parsedEvent.Type = packEvent.Type
-	parsedEvent.Entity = &pack
+	parsedEvent.Entity = pack
 	return &parsedEvent, nil
 }
