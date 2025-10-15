@@ -5,12 +5,12 @@ ARG GITHUB_PATH=github.com/StormBeaver/logistic-pack-facade
 
 WORKDIR /home/${GITHUB_PATH}
 
-RUN apk add --update make
+RUN apk add --update make git
 COPY Makefile Makefile
 COPY . .
 RUN make go-build
 
-# Facade
+# facade
 
 FROM alpine:latest AS facade
 
