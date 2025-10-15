@@ -25,7 +25,7 @@ func StartConsuming(ctx context.Context, cfg *config.Kafka, wg *sync.WaitGroup) 
 	wg.Add(1)
 	go func() {
 		defer wg.Done()
-		log.Info().Strs("topic", cfg.Topics).Msg("subscribe")
+		log.Info().Strs("topics", cfg.Topics).Msg("subscribe")
 		subscribe(ctx, cfg.Topics, consumerGroup, cfg.Tick)
 	}()
 	return nil
