@@ -25,26 +25,6 @@ func GetConfigInstance() Config {
 	return Config{}
 }
 
-// Database - contains all parameters database connection.
-// type Database struct {
-// 	Host        string `yaml:"host"`
-// 	Port        string `yaml:"port"`
-// 	User        string `yaml:"user"`
-// 	Password    string `yaml:"password"`
-// 	Migrations  string `yaml:"migrations"`
-// 	Name        string `yaml:"name"`
-// 	SslMode     string `yaml:"sslmode"`
-// 	Driver      string `yaml:"driver"`
-// 	Connections DBCons `yaml:"connections"`
-// }
-
-// type DBCons struct {
-// 	MaxOpenCons     int           `yaml:"maxOpenCons"`
-// 	MaxIdleCons     int           `yaml:"maxIdleCons"`
-// 	ConnMaxIdleTime time.Duration `yaml:"connMaxIdleTime"`
-// 	ConnMaxLifeTime time.Duration `yaml:"connMaxLifeTime"`
-// }
-
 // Project - contains all parameters project information.
 type Project struct {
 	Debug       bool   `yaml:"debug"`
@@ -52,20 +32,6 @@ type Project struct {
 	Environment string `yaml:"environment"`
 	Version     string
 	CommitHash  string
-}
-
-// Metrics - contains all parameters metrics information.
-type Metrics struct {
-	Port int    `yaml:"port"`
-	Host string `yaml:"host"`
-	Path string `yaml:"path"`
-}
-
-// Jaeger - contains all parameters metrics information.
-type Jaeger struct {
-	Service string `yaml:"service"`
-	Host    string `yaml:"host"`
-	Port    string `yaml:"port"`
 }
 
 // Kafka - contains all parameters kafka information.
