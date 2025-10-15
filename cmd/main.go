@@ -18,7 +18,7 @@ func main() {
 	go http.ListenAndServe("localhost:10000", nil)
 	wg := &sync.WaitGroup{}
 
-	if err := config.ReadConfigYML("config.yaml"); err != nil {
+	if err := config.ReadConfigYML("config.yml"); err != nil {
 		log.Fatal().Err(err).Msg("Failed init configuration")
 	}
 
