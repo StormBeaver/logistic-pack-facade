@@ -11,5 +11,5 @@ kafka:
     - "updated"
   groupId: "logistic-pack"
   brokers:
-    - "kafka:9094"
+    - "kafka:9092"
     # - "localhost:9094" # for local launch
