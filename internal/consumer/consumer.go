@@ -33,7 +33,7 @@ func StartConsuming(ctx context.Context, cfg *config.Kafka, wg *sync.WaitGroup) 
 
 func subscribe(
 	ctx context.Context,
-	topic []string,
+	topics []string,
 	group sarama.ConsumerGroup,
 	consumeRate time.Duration,
 ) {
@@ -42,7 +42,7 @@ func subscribe(
 	for {
 		select {
 		case <-ticker.C:
-			if err := group.Consume(ctx, topic, &consumer); err != nil {
+			if err := group.Consume(ctx, topics, &consumer); err != nil {
 				log.Error().Err(err).Msg("consume fail")
 			}
 		case <-ctx.Done():
