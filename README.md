@@ -4,7 +4,7 @@
 https://github.com/ozonmp/omp-docs
 
 # О проекте
-Репозиторий является частью проекта [Logistic-pack-api](https://github.com/StormBeaver/logistic-pack-bot)
+Репозиторий является частью проекта [Logistic-pack-api](https://github.com/StormBeaver/logistic-pack-api)
 
 ## logistic-pack-facade
 
